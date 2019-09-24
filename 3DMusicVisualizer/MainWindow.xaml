@@ -1,0 +1,18 @@
+﻿<Window x:Class="_3DMusicVisualizer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+        WindowStyle="SingleBorderWindow"
+        Title="3D Music Visualizer" ResizeMode="CanMinimize">
+    <Grid>
+        <Canvas x:Name="VisualizerOutput" Grid.Row="0" Width="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenWidthKey}}" Height="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenHeightKey}}" Background="{DynamicResource {x:Static SystemColors.MenuBarBrushKey}}" />
+        <DockPanel Grid.Row="1" x:Name="MenuDock" HorizontalAlignment="Left" Height="21" Margin="0,485,-30,0" VerticalAlignment="Bottom" Width="792">
+            <Button x:Name="PauseButton" Content="Pause" HorizontalAlignment="Left" VerticalAlignment="Top" Width="186" Click="PauseVisualizerOnClick"/>
+            <Button x:Name="LoadFileButton" Content="Load" Height="21" VerticalAlignment="Top" Width="75"/>
+        </DockPanel>
+
+    </Grid>
+</Window>

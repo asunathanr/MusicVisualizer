@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.779
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3DMusicVisualizer", "3DMusicVisualizer\3DMusicVisualizer.csproj", "{8E35A966-E637-44CB-9B19-A04A0531B2DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3DMusicVisualizer.Tests", "3DMusicVisualizer.Tests\3DMusicVisualizer.Tests.csproj", "{54E81BB8-5371-4B6C-B484-F5B285B8B760}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8E35A966-E637-44CB-9B19-A04A0531B2DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E35A966-E637-44CB-9B19-A04A0531B2DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E35A966-E637-44CB-9B19-A04A0531B2DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E35A966-E637-44CB-9B19-A04A0531B2DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54E81BB8-5371-4B6C-B484-F5B285B8B760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54E81BB8-5371-4B6C-B484-F5B285B8B760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54E81BB8-5371-4B6C-B484-F5B285B8B760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54E81BB8-5371-4B6C-B484-F5B285B8B760}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {492C0280-0CD9-450F-B2EC-B0A27F2584DD}
+	EndGlobalSection
+EndGlobal
