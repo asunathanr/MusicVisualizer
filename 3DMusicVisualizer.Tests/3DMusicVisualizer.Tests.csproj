@@ -72,9 +72,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\3DMusicVisualizer\3DMusicVisualizer.csproj">
+    <ProjectReference Include="..\3DMusicVisualizer\MusicVisualizer.csproj">
       <Project>{8e35a966-e637-44cb-9b19-a04a0531b2dd}</Project>
-      <Name>3DMusicVisualizer</Name>
+      <Name>MusicVisualizer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

@@ -1,12 +1,4 @@
-﻿using Numpy;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Media;
+﻿using System.Windows;
 
 namespace _3DMusicVisualizer
 {
@@ -15,16 +7,33 @@ namespace _3DMusicVisualizer
     /// </summary>
     public partial class App : Application
     {
-        private static SoundPlayer player = new SoundPlayer("E:\\School\\Graphics Programming\\FinalProject\\3DMusicVisualizer\\media\\rickRolled.wav");
+        private static AudioPlayer audio;
+
+        public static void Play()
+        {
+            PlayMusic();
+        }
+
+        public static void Pause()
+        {
+            PauseMusic();
+        }
+
+        public static void ChangeTrack(string trackName)
+        {
+            Pause();
+            audio = new AudioPlayer(trackName);
+            Play();
+        }
 
         public static void PauseMusic()
         {
-            player.Stop();
+            audio.Pause();
         }
 
         public static void PlayMusic()
         {
-            player.Play();
+            audio.Play();
         }
     }
 }
