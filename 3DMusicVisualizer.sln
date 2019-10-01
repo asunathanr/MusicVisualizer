@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisualizerAudio", "Visualiz
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrequencyAnalysisApp", "FrequencyAnalysisApp\FrequencyAnalysisApp.csproj", "{CF506138-14CF-44D1-89A8-4325865CAEBF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VisualizerGraphics", "VisualizerGraphics\VisualizerGraphics.vcxproj", "{A9FF93B5-1AE1-4E26-BFC3-D957C5B36BE0}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,16 +83,6 @@ Global
 		{CF506138-14CF-44D1-89A8-4325865CAEBF}.Release|x64.Build.0 = Release|Any CPU
 		{CF506138-14CF-44D1-89A8-4325865CAEBF}.Release|x86.ActiveCfg = Release|Any CPU
 		{CF506138-14CF-44D1-89A8-4325865CAEBF}.Release|x86.Build.0 = Release|Any CPU
-		{A9FF93B5-1AE1-4E26-BFC3-D957C5B36BE0}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{A9FF93B5-1AE1-4E26-BFC3-D957C5B36BE0}.Debug|x64.ActiveCfg = Debug|x64
-		{A9FF93B5-1AE1-4E26-BFC3-D957C5B36BE0}.Debug|x64.Build.0 = Debug|x64
-		{A9FF93B5-1AE1-4E26-BFC3-D957C5B36BE0}.Debug|x86.ActiveCfg = Debug|Win32
-		{A9FF93B5-1AE1-4E26-BFC3-D957C5B36BE0}.Debug|x86.Build.0 = Debug|Win32
-		{A9FF93B5-1AE1-4E26-BFC3-D957C5B36BE0}.Release|Any CPU.ActiveCfg = Release|Win32
-		{A9FF93B5-1AE1-4E26-BFC3-D957C5B36BE0}.Release|x64.ActiveCfg = Release|x64
-		{A9FF93B5-1AE1-4E26-BFC3-D957C5B36BE0}.Release|x64.Build.0 = Release|x64
-		{A9FF93B5-1AE1-4E26-BFC3-D957C5B36BE0}.Release|x86.ActiveCfg = Release|Win32
-		{A9FF93B5-1AE1-4E26-BFC3-D957C5B36BE0}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

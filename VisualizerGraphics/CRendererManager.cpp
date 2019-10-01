@@ -96,10 +96,7 @@ CRendererManager::EnsureRenderers()
         IFCOOM(m_rgRenderers);
         ZeroMemory(m_rgRenderers, m_cAdapters * sizeof(m_rgRenderers[0]));
 
-        for (UINT i = 0; i < m_cAdapters; ++i)
-        {
-            IFC(CTriangleRenderer::Create(m_pD3D, m_pD3DEx, m_hwnd, i, &m_rgRenderers[i]));
-        }
+
 
         // Default to the default adapter 
         m_pCurrentRenderer = m_rgRenderers[0];

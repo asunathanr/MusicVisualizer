@@ -5,12 +5,19 @@
 
 #pragma once
 
-#include "targetver.h"
-
 #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
-// Windows Header Files
+// Windows Header Files:
 #include <windows.h>
 
+#include <d3d9.h>
+#include <d3d9types.h>
+
+#include <assert.h>
+
+#include "CRendererManager.h"
+#include "CRenderer.h"
 
 
-// reference additional headers your program requires here
+#define IFC(x) { hr = (x); if (FAILED(hr)) goto Cleanup; }
+#define IFCOOM(x) { if ((x) == NULL) { hr = E_OUTOFMEMORY; IFC(hr); } }
+#define SAFE_RELEASE(x) { if (x) { x->Release(); x = NULL; } }

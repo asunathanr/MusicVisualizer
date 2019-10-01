@@ -28,12 +28,20 @@ namespace _3DMusicVisualizer
 
         public static void PauseMusic()
         {
-            audio.Pause();
+            if (audio != null)
+            {
+                audio.Pause();
+            }
+            
         }
 
         public static void PlayMusic()
         {
-            audio.Play();
+            if (audio != null)
+            {
+                audio.Play();
+            }
+            
         }
     }
 }

@@ -1,4 +1,4 @@
-LIBRARY "D3DContent"
+LIBRARY "VisualizerGraphics"
 
 EXPORTS
 
