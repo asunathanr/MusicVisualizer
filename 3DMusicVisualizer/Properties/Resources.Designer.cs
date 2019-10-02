@@ -59,5 +59,14 @@ namespace _3DMusicVisualizer.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mp3 files (*.mp3)|*.mp3|wav files (.wav)|*.wav.
+        /// </summary>
+        internal static string openFileDialogFilter {
+            get {
+                return ResourceManager.GetString("openFileDialogFilter", resourceCulture);
+            }
+        }
     }
 }

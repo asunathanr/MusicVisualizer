@@ -117,4 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="openFileDialogFilter" xml:space="preserve">
+    <value>mp3 files (*.mp3)|*.mp3|wav files (.wav)|*.wav</value>
+    <comment>Allows user to only select certain file types</comment>
+  </data>
 </root>

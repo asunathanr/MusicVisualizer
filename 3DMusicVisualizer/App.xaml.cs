@@ -3,7 +3,7 @@
 namespace _3DMusicVisualizer
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// Gatekeeper to all visualization logic.
     /// </summary>
     public partial class App : Application
     {
