@@ -23,6 +23,8 @@ namespace _3DMusicVisualizer
         {
             InitializeComponent();
 
+            visualizerImage = FindName("D3DImage") as D3DImage;
+
             HRESULT.Check(SetSize(512, 512));
             HRESULT.Check(SetAlpha(false));
             HRESULT.Check(SetNumDesiredSamples(4));
@@ -36,7 +38,7 @@ namespace _3DMusicVisualizer
             };
             updateTimer.Interval = new TimeSpan(0, 0, 1);
             updateTimer.Start();
-            visualizerImage = FindName("visualizerImageGUI") as D3DImage;
+            
         }
 
         ~MainWindow()
@@ -69,16 +71,16 @@ namespace _3DMusicVisualizer
             }
         }
 
-        [DllImport("D3DCode.dll")]
+        [DllImport("D3DVisualizer.dll")]
         static extern int GetBackBufferNoRef(out IntPtr pSurface);
 
-        [DllImport("D3DCode.dll")]
+        [DllImport("D3DVisualizer.dll")]
         static extern int SetSize(uint width, uint height);
 
-        [DllImport("D3DCode.dll")]
+        [DllImport("D3DVisualizer.dll")]
         static extern int SetAlpha(bool useAlpha);
 
-        [DllImport("D3DCode.dll")]
+        [DllImport("D3DVisualizer.dll")]
         static extern int SetNumDesiredSamples(uint numSamples);
 
         DispatcherTimer _sizeTimer;
@@ -98,13 +100,13 @@ namespace _3DMusicVisualizer
             public int y;
         }
 
-        [DllImport("D3DCode.dll")]
+        [DllImport("D3DVisualizer.dll")]
         static extern int SetAdapter(POINT screenSpacePoint);
 
-        [DllImport("D3DCode.dll")]
+        [DllImport("D3DVisualizer.dll")]
         static extern int Render();
 
-        [DllImport("D3DCode.dll")]
+        [DllImport("D3DVisualizer.dll")]
         static extern void Destroy();
 
         private void PauseVisualizerOnClick(object sender, RoutedEventArgs e)

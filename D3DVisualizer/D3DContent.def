@@ -1,0 +1,12 @@
+LIBRARY "D3DVisualizer"
+
+EXPORTS
+
+SetSize
+SetAlpha
+SetNumDesiredSamples
+SetAdapter
+
+GetBackBufferNoRef
+Render
+Destroy

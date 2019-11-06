@@ -21,14 +21,7 @@ namespace VisualizerAudio
             PeakInfo nextPeak;
             maxPeak.Init(fileReader, 20);
 
-            while (fileReader.CanRead)
-            {
-                nextPeak = maxPeak.GetNextPeak();
-                overallMaxPeak = System.Math.Max(nextPeak.Max, overallMaxPeak.Max);
-            }
-
-            fileReader.Seek(originalPosition, System.IO.SeekOrigin.Begin);
-            return 
+            return maxPeak.GetNextPeak();
         }
     }
 }

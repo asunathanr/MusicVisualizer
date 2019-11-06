@@ -124,6 +124,10 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\D3DVisualizer\D3DVisualizer.vcxproj">
+      <Project>{e1ccc97f-4af7-4417-bfb6-76a230e00bd0}</Project>
+      <Name>D3DVisualizer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VisualizerAudio\VisualizerAudio.csproj">
       <Project>{993c6424-6dc8-4c46-a4d4-5aefbdb5b9e2}</Project>
       <Name>VisualizerAudio</Name>
