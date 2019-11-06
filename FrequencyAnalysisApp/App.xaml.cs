@@ -14,13 +14,13 @@ namespace FrequencyAnalysisApp
     /// </summary>
     public partial class App : Application
     {
-        private static FileFrequencySampler sampler;
+        private static AudioStatistics sampler;
 
         public static void ReadSamples()
         {
             Console.WriteLine("Reading samples");
 
-            sampler = new FileFrequencySampler(
+            sampler = new AudioStatistics(
                 "E:\\School\\Graphics Programming\\FinalProject\\3DMusicVisualizer\\media\\rickRolled.wav"
             );
             for (int i = 0; i < 20; ++i)

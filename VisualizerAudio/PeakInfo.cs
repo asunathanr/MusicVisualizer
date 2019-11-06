@@ -13,5 +13,11 @@
 
         public float Min { get; private set; }
         public float Max { get; private set; }
+
+        
+        public bool HasLargerMaxPeak(PeakInfo other)
+        {
+            return other == null || Max > other.Max;
+        }
     }
 }
