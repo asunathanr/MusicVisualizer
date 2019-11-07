@@ -26,7 +26,15 @@
             <Button x:Name="LoadFileButton" Content="Load" Height="21" VerticalAlignment="Top" Width="75" Click="RetrieveFileFromDialogOnClick" Foreground="{DynamicResource ButtonTextBrush}" Background="{DynamicResource ButtonBrush}"/>
         </DockPanel>
 
-        <Image x:Name="visualizerImageGUI">
+        <Image x:Name="visualizerImageGUI" Margin="5,112,49,10" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
             <Image.Source>
                 <i:D3DImage x:Name="D3DImage"></i:D3DImage>
             </Image.Source>

@@ -74,11 +74,8 @@
     <Compile Include="PeakInfo.cs" />
     <Compile Include="PeakProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AudioStatistics.cs" />
     <Compile Include="RMSPeakProvider.cs" />
     <Compile Include="SamplingPeakProvider.cs" />
-    <Compile Include="VisualizationRotation.cs" />
-    <Compile Include="Visualizer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

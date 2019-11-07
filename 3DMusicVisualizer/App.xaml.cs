@@ -10,7 +10,6 @@ namespace _3DMusicVisualizer
     public partial class App : Application
     {
         private static AudioPlayer audio;
-        private static Visualizer audioVisualizer;
 
         public static void Play()
         {
@@ -22,19 +21,16 @@ namespace _3DMusicVisualizer
             PauseMusic();
         }
 
+        public static long CurrentSample()
+        {
+            return audio?.CurrentSample ?? 0;
+        }
+
         public static void ChangeTrack(string trackName, Viewport3D model)
         {
             Pause();
             audio = new AudioPlayer(trackName);
             Play();
-        }
-
-        public static void UpdateVisualizer()
-        {
-            if (audioVisualizer != null)
-            {
-                audioVisualizer.PerformRotation();
-            }
         }
 
         public static void PauseMusic()

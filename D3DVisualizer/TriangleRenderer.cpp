@@ -39,6 +39,11 @@ CTriangleRenderer::~CTriangleRenderer()
     SAFE_RELEASE(m_pd3dVB);
 }
 
+void CTriangleRenderer::AdjustRotationSpeed(float newSpeed)
+{
+
+}
+
 //+-----------------------------------------------------------------------------
 //
 //  Member:

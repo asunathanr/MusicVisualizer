@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "CRendererManager.h"
+#include "VisualizerRenderer.h"
 
 // From: https://docs.microsoft.com/en-us/dotnet/framework/wpf/advanced/walkthrough-creating-direct3d9-content-for-hosting-in-wpf?view=netframework-4.8
 
@@ -47,7 +48,7 @@ CRendererManager::EnsureRenderers()
 
         for (UINT i = 0; i < m_cAdapters; ++i)
         {
-            IFC(CTriangleRenderer::Create(m_pD3D, m_pD3DEx, m_hwnd, i, &m_rgRenderers[i]));
+            IFC(VisualizerRenderer::Create(m_pD3D, m_pD3DEx, m_hwnd, i, &m_rgRenderers[i]));
         }
 
         // Default to the default adapter 
@@ -349,6 +350,11 @@ CRendererManager::DestroyResources()
     m_fSurfaceSettingsChanged = true;
 }
 
+
+void CRendererManager::AdjustRotationSpeed(float newSpeed)
+{
+    m_pCurrentRenderer->AdjustRotationSpeed(newSpeed);
+}
 
 //+-----------------------------------------------------------------------------
 //

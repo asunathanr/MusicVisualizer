@@ -1,4 +1,5 @@
 ﻿using NAudio.Wave;
+using System.Collections.Generic;
 
 namespace _3DMusicVisualizer
 {
@@ -6,13 +7,22 @@ namespace _3DMusicVisualizer
     {
         private AudioFileReader player;
         private WaveOutEvent waveOutEvent;
+        private List<RotationProducer> producers;
 
         public AudioPlayer(string fileName)
         {
             player = new AudioFileReader(fileName);
+            producers = new List<RotationProducer>();
             waveOutEvent = new WaveOutEvent();
             waveOutEvent.Init(player);
         }
+
+        public void RegisterProducer(RotationProducer producer)
+        {
+            producers.Add(producer);
+        }
+
+        public long CurrentSample => player.Position;
 
         /// <summary>
         /// Begins playing audio from current track position
@@ -37,5 +47,7 @@ namespace _3DMusicVisualizer
         {
             waveOutEvent.Stop();
         }
+
+        
     }
 }

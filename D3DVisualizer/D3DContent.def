@@ -2,6 +2,8 @@ LIBRARY "D3DVisualizer"
 
 EXPORTS
 
+AdjustRotationSpeed
+
 SetSize
 SetAlpha
 SetNumDesiredSamples

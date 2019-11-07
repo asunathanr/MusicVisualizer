@@ -11,6 +11,8 @@ public:
     HRESULT CheckDeviceState();
     HRESULT CreateSurface(UINT uWidth, UINT uHeight, bool fUseAlpha, UINT m_uNumSamples);
 
+    virtual void AdjustRotationSpeed(float newSpeed) = 0;
+
     virtual HRESULT Render() = 0;
 
     IDirect3DSurface9 *GetSurfaceNoRef() { return m_pd3dRTS; }

@@ -24,6 +24,18 @@ static HRESULT EnsureRendererManager()
     return pManager ? S_OK : CRendererManager::Create(&pManager);
 }
 
+extern "C" HRESULT WINAPI AdjustRotationSpeed(float value)
+{
+    HRESULT hr = S_OK;
+
+    IFC(EnsureRendererManager());
+
+    pManager->AdjustRotationSpeed(value);
+
+Cleanup:
+    return hr;
+}
+
 extern "C" HRESULT WINAPI SetSize(UINT uWidth, UINT uHeight)
 {
     HRESULT hr = S_OK;

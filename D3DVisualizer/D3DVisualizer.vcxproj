@@ -72,6 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>E:\School\Graphics Programming\FinalProject\3DMusicVisualizer\3DMusicVisualizer\3DMusicVisualizer\bin\Debug</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -159,6 +160,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TriangleRenderer.h" />
+    <ClInclude Include="VisualizerRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CRendererManager.cpp" />
@@ -171,6 +173,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TriangleRenderer.cpp" />
+    <ClCompile Include="VisualizerRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="D3DContent.def" />

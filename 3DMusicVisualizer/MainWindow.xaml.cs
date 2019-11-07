@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NAudio.Wave;
+using System;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
 using System.Windows;
@@ -18,6 +19,11 @@ namespace _3DMusicVisualizer
     {
         private D3DImage visualizerImage;
         private DispatcherTimer updateTimer;
+        private RotationProducer rotationProducer;
+        private RotationConsumer rotationConsumer;
+
+        private uint visualizerHeight;
+        private uint visualizerWidth;
 
         public MainWindow()
         {
@@ -25,20 +31,14 @@ namespace _3DMusicVisualizer
 
             visualizerImage = FindName("D3DImage") as D3DImage;
 
-            HRESULT.Check(SetSize(512, 512));
+            visualizerHeight = (uint)visualizerImage.PixelHeight;
+            visualizerWidth = (uint)visualizerImage.PixelWidth;
+
+            HRESULT.Check(SetSize(1024, 1024));
             HRESULT.Check(SetAlpha(false));
             HRESULT.Check(SetNumDesiredSamples(4));
 
             CompositionTarget.Rendering += new EventHandler(CompositionTarget_Rendering);
-
-            updateTimer = new DispatcherTimer();
-            updateTimer.Tick += (object sender, EventArgs e) =>
-            {
-                App.UpdateVisualizer();
-            };
-            updateTimer.Interval = new TimeSpan(0, 0, 1);
-            updateTimer.Start();
-            
         }
 
         ~MainWindow()
@@ -67,6 +67,21 @@ namespace _3DMusicVisualizer
                     visualizerImage.Unlock();
 
                     _lastRender = args.RenderingTime;
+                    if (rotationProducer != null)
+                    {
+                        if (rotationProducer.CanRotate(App.CurrentSample()))
+                        {
+                            HRESULT.Check(AdjustRotationSpeed(2.0f));
+                        }
+                        else
+                        {
+                            HRESULT.Check(AdjustRotationSpeed(0.0f));
+                        }
+                    }
+                    else
+                    {
+                        HRESULT.Check(AdjustRotationSpeed(0.0f));
+                    }
                 }
             }
         }
@@ -82,6 +97,9 @@ namespace _3DMusicVisualizer
 
         [DllImport("D3DVisualizer.dll")]
         static extern int SetNumDesiredSamples(uint numSamples);
+
+        [DllImport("D3DVisualizer.dll")]
+        static extern int AdjustRotationSpeed(float newSpeed);
 
         DispatcherTimer _sizeTimer;
         DispatcherTimer _adapterTimer;
@@ -136,6 +154,9 @@ namespace _3DMusicVisualizer
                 if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     filePath = openFileDialog.FileName;
+                    AudioFileReader audioFileReader = new AudioFileReader(filePath);
+                    rotationConsumer = new RotationConsumer(rotValue => HRESULT.Check(AdjustRotationSpeed(rotValue)));
+                    rotationProducer = new RotationProducer(audioFileReader, rotationConsumer);
                     App.ChangeTrack(filePath, FindName("visualizerViewport") as Viewport3D);
                 }
             }
