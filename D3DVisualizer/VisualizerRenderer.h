@@ -1,5 +1,9 @@
 #pragma once
 #include "Renderer.h"
+#include "CubeGeometry.h"
+#include "CustomVertex.h"
+#include <vector>
+
 class VisualizerRenderer :
     public CRenderer
 {
@@ -20,6 +24,10 @@ private:
 
     float rotationSpeed;
 
-    IDirect3DVertexBuffer9 *m_pd3dVB;
+    IDirect3DVertexBuffer9 * m_pd3dVB;
+
+    std::vector<CubeGeometry> geometries;
+
+    void CopyCubes(CUSTOMVERTEX* destination);
 };
 

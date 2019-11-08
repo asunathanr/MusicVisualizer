@@ -43,15 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Epoch.cs" />
-    <Compile Include="GraphicsComponent.cs" />
-    <Compile Include="GraphicsComponentRepository.cs" />
-    <Compile Include="ITranformationCommand.cs" />
-    <Compile Include="IVisualizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RotationCommand.cs" />
-    <Compile Include="SilentVisualizer.cs" />
-    <Compile Include="TranslateCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

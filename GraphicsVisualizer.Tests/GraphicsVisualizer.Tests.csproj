@@ -63,9 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GraphicsComponentTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RotationCommandTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

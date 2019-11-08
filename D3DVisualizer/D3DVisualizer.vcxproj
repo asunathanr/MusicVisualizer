@@ -156,6 +156,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CRendererManager.h" />
+    <ClInclude Include="CubeGeometry.h" />
+    <ClInclude Include="CustomVertex.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -164,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CRendererManager.cpp" />
+    <ClCompile Include="CubeGeometry.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="stdafx.cpp">
