@@ -16,6 +16,7 @@ public:
     HRESULT EnsureDevices();
 
     void AdjustRotationSpeed(float newSpeed);
+    void CreateEpoch();
     void SetSize(UINT uWidth, UINT uHeight);
     void SetAlpha(bool fUseAlpha);
     void SetNumDesiredSamples(UINT uNumSamples);

@@ -356,6 +356,11 @@ void CRendererManager::AdjustRotationSpeed(float newSpeed)
     m_pCurrentRenderer->AdjustRotationSpeed(newSpeed);
 }
 
+void CRendererManager::CreateEpoch()
+{
+    m_pCurrentRenderer->AddCube();
+}
+
 //+-----------------------------------------------------------------------------
 //
 //  Member:

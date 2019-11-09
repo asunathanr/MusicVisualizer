@@ -16,7 +16,6 @@
 
 #include "CRendererManager.h"
 #include "Renderer.h"
-#include "TriangleRenderer.h"
 
 #define IFC(x) { hr = (x); if (FAILED(hr)) goto Cleanup; }
 #define IFCOOM(x) { if ((x) == NULL) { hr = E_OUTOFMEMORY; IFC(hr); } }

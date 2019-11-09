@@ -10,6 +10,8 @@ public:
     CubeGeometry(const CubeGeometry& other);
     ~CubeGeometry();
 
+    D3DVECTOR position;
+
     CUSTOMVERTEX* vertices;
 
 private:

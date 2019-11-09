@@ -67,21 +67,6 @@ namespace _3DMusicVisualizer
                     visualizerImage.Unlock();
 
                     _lastRender = args.RenderingTime;
-                    if (rotationProducer != null)
-                    {
-                        if (rotationProducer.CanRotate(App.CurrentSample()))
-                        {
-                            HRESULT.Check(AdjustRotationSpeed(2.0f));
-                        }
-                        else
-                        {
-                            HRESULT.Check(AdjustRotationSpeed(0.0f));
-                        }
-                    }
-                    else
-                    {
-                        HRESULT.Check(AdjustRotationSpeed(0.0f));
-                    }
                 }
             }
         }
@@ -101,22 +86,12 @@ namespace _3DMusicVisualizer
         [DllImport("D3DVisualizer.dll")]
         static extern int AdjustRotationSpeed(float newSpeed);
 
+        [DllImport("D3DVisualizer.dll")]
+        static extern int CreateEpoch();
+
         DispatcherTimer _sizeTimer;
         DispatcherTimer _adapterTimer;
         TimeSpan _lastRender;
-
-        [StructLayout(LayoutKind.Sequential)]
-        struct POINT
-        {
-            public POINT(Point p)
-            {
-                x = (int)p.X;
-                y = (int)p.Y;
-            }
-
-            public int x;
-            public int y;
-        }
 
         [DllImport("D3DVisualizer.dll")]
         static extern int SetAdapter(POINT screenSpacePoint);
@@ -140,27 +115,33 @@ namespace _3DMusicVisualizer
         /// <param name="e"></param>
         private void RetrieveFileFromDialogOnClick(object sender, RoutedEventArgs e)
         {
-            App.PauseMusic();
-            var fileContent = string.Empty;
-            var filePath = string.Empty;
+            App.Pause();
 
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            FileRetriever fileRetriever = new FileRetriever();
+            fileRetriever.OnSuccess = (string fileName) =>
             {
-                openFileDialog.InitialDirectory = "c://";
-                openFileDialog.Filter = Properties.Resources.openFileDialogFilter;
-                openFileDialog.FilterIndex = 1;
-                openFileDialog.RestoreDirectory = true;
+                App.ChangeTrack(fileName);
+            };
 
-                if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    filePath = openFileDialog.FileName;
-                    AudioFileReader audioFileReader = new AudioFileReader(filePath);
-                    rotationConsumer = new RotationConsumer(rotValue => HRESULT.Check(AdjustRotationSpeed(rotValue)));
-                    rotationProducer = new RotationProducer(audioFileReader, rotationConsumer);
-                    App.ChangeTrack(filePath, FindName("visualizerViewport") as Viewport3D);
-                }
+            fileRetriever.OnFail = () =>
+            {
+
+            };
+
+            fileRetriever.RetrieveFile();
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        struct POINT
+        {
+            public POINT(Point p)
+            {
+                x = (int)p.X;
+                y = (int)p.Y;
             }
 
+            public int x;
+            public int y;
         }
     }
 

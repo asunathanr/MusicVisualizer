@@ -80,6 +80,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AudioPlayer.cs" />
+    <Compile Include="FileRetriever.cs" />
     <Compile Include="RotationConsumer.cs" />
     <Compile Include="RotationProducer.cs" />
     <Page Include="MainWindow.xaml">

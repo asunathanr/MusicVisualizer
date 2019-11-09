@@ -22,7 +22,7 @@ Cleanup:
     return hr;
 }
 
-VisualizerRenderer::VisualizerRenderer() : CRenderer(), rotationSpeed(0.0f), m_pd3dVB(NULL)
+VisualizerRenderer::VisualizerRenderer() : CRenderer(), rotationSpeed(0.0f), m_pd3dVB(NULL), currTranslate({0.0f, 0.0f, 0.0f}), numCubes(1)
 {
 }
 
@@ -36,6 +36,7 @@ VisualizerRenderer::~VisualizerRenderer()
 HRESULT VisualizerRenderer::Init(IDirect3D9 * pD3D, IDirect3D9Ex * pD3DEx, HWND hwnd, UINT uAdapter)
 {
         // Set up the VB
+    /*
     CUSTOMVERTEX vertices[] =
     {
         { 1.0f, 1.0f, 0.0f, 0xffffff00, }, // x, y, z, color
@@ -46,10 +47,11 @@ HRESULT VisualizerRenderer::Init(IDirect3D9 * pD3D, IDirect3D9Ex * pD3DEx, HWND 
         {  2.0f, 1.0f, 0.0f, 0xff00ff00, }, // Bottom-right
         {  2.0f,  2.0f, 0.0f, 0xff00ffff, },
     };
+    */
 
-    //CUSTOMVERTEX vertices[36];
-    //geometries.push_back(CubeGeometry({1.0f, 1.0f, 0.0f}, 1.0f));
-    //CopyCubes(vertices);
+    CUSTOMVERTEX vertices[36];
+    geometries.push_back(CubeGeometry({-1.0f, -1.0f, 0.0f}, 1.0f));
+    CopyCubes(vertices);
 
     HRESULT hr = S_OK;
     D3DXMATRIXA16 matView, matProj;
@@ -58,7 +60,7 @@ HRESULT VisualizerRenderer::Init(IDirect3D9 * pD3D, IDirect3D9Ex * pD3DEx, HWND 
     D3DXVECTOR3 vUpVec(0.0f, 1.0f, 0.0f);
 
 
-    UINT numVertices = sizeof(CUSTOMVERTEX) * 6;
+    UINT numVertices = sizeof(CUSTOMVERTEX) * 36;
 
     // Call base to create the device and render target
     IFC(CRenderer::Init(pD3D, pD3DEx, hwnd, uAdapter));
@@ -106,11 +108,14 @@ HRESULT VisualizerRenderer::Render()
         ));
     
     D3DXMatrixRotationY(&matWorld, fAngle);
+    //D3DXMatrixTranslation(&matWorld, currTranslate.x, currTranslate.y, currTranslate.z);
+    
     IFC(m_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorld));
 
-    IFC(m_pd3dDevice->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 2));
+    IFC(m_pd3dDevice->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 12));
 
     IFC(m_pd3dDevice->EndScene());
+    currTranslate.z -= 0.00f;
 
 Cleanup:
     return hr;
@@ -121,6 +126,10 @@ void VisualizerRenderer::AdjustRotationSpeed(float newRotationSpeed)
     rotationSpeed = newRotationSpeed;
 }
 
+void VisualizerRenderer::AddCube()
+{
+    ++numCubes;
+}
 
 void VisualizerRenderer::CopyCubes(CUSTOMVERTEX * destination)
 {

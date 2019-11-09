@@ -24,6 +24,18 @@ static HRESULT EnsureRendererManager()
     return pManager ? S_OK : CRendererManager::Create(&pManager);
 }
 
+extern "C" HRESULT WINAPI CreateEpoch()
+{
+    HRESULT hr = S_OK;
+
+    IFC(EnsureRendererManager());
+
+    
+
+Cleanup:
+    return hr;
+}
+
 extern "C" HRESULT WINAPI AdjustRotationSpeed(float value)
 {
     HRESULT hr = S_OK;

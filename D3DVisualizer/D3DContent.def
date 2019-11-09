@@ -3,6 +3,7 @@ LIBRARY "D3DVisualizer"
 EXPORTS
 
 AdjustRotationSpeed
+CreateEpoch
 
 SetSize
 SetAlpha

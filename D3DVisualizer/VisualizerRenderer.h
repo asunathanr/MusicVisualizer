@@ -14,6 +14,8 @@ public:
 
     void AdjustRotationSpeed(float newRotationSpeed);
 
+    void AddCube();
+
     ~VisualizerRenderer();
 
 protected:
@@ -24,7 +26,11 @@ private:
 
     float rotationSpeed;
 
+    int numCubes;
+
     IDirect3DVertexBuffer9 * m_pd3dVB;
+
+    D3DVECTOR currTranslate;
 
     std::vector<CubeGeometry> geometries;
 

@@ -26,7 +26,7 @@ namespace _3DMusicVisualizer
             return audio?.CurrentSample ?? 0;
         }
 
-        public static void ChangeTrack(string trackName, Viewport3D model)
+        public static void ChangeTrack(string trackName)
         {
             Pause();
             audio = new AudioPlayer(trackName);

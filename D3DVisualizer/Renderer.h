@@ -12,6 +12,7 @@ public:
     HRESULT CreateSurface(UINT uWidth, UINT uHeight, bool fUseAlpha, UINT m_uNumSamples);
 
     virtual void AdjustRotationSpeed(float newSpeed) = 0;
+    virtual void AddCube() = 0;
 
     virtual HRESULT Render() = 0;
 
