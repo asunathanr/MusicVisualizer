@@ -1,25 +1,25 @@
 ﻿using NAudio.Wave;
+using System;
 using System.Collections.Generic;
+using VisualizerAudio;
 
 namespace _3DMusicVisualizer
 {
     public class AudioPlayer
     {
-        private AudioFileReader player;
+        private AudioFileObserverStream player;
         private WaveOutEvent waveOutEvent;
-        private List<RotationProducer> producers;
 
         public AudioPlayer(string fileName)
         {
-            player = new AudioFileReader(fileName);
-            producers = new List<RotationProducer>();
+            player = new AudioFileObserverStream(fileName);
             waveOutEvent = new WaveOutEvent();
             waveOutEvent.Init(player);
         }
 
-        public void RegisterProducer(RotationProducer producer)
+        public void RegisterReadSubscriber(OnReadHandler subscriber)
         {
-            producers.Add(producer);
+            player.OnRead += subscriber;
         }
 
         public long CurrentSample => player.Position;

@@ -1,10 +1,7 @@
-﻿using NAudio.Wave;
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -125,7 +122,7 @@ namespace _3DMusicVisualizer
 
             fileRetriever.OnFail = () =>
             {
-
+                App.Play();
             };
 
             fileRetriever.RetrieveFile();

@@ -1,6 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
-using VisualizerAudio;
 
 namespace _3DMusicVisualizer
 {
@@ -10,6 +8,8 @@ namespace _3DMusicVisualizer
     public partial class App : Application
     {
         private static AudioPlayer audio;
+        private static RotationConsumer rotationConsumer;
+        private static RotationProducer rotationProducer;
 
         public static void Play()
         {
@@ -28,7 +28,6 @@ namespace _3DMusicVisualizer
 
         public static void ChangeTrack(string trackName)
         {
-            Pause();
             audio = new AudioPlayer(trackName);
             Play();
         }
