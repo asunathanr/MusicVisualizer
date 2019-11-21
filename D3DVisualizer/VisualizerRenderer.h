@@ -30,6 +30,8 @@ private:
 
     IDirect3DVertexBuffer9 * m_pd3dVB;
 
+    IDirect3DIndexBuffer9 * m_indexBuffer; 
+
     D3DVECTOR currTranslate;
 
     std::vector<CubeGeometry> geometries;

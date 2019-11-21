@@ -37,7 +37,7 @@ namespace _3DMusicVisualizer
             openFileDialog.Filter = Properties.Resources.openFileDialogFilter;
             openFileDialog.FilterIndex = 1;
 
-            Nullable<bool> result = openFileDialog.ShowDialog();
+            bool? result = openFileDialog.ShowDialog();
 
             if (result == true)
             {

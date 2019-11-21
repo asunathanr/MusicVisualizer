@@ -15,13 +15,21 @@ namespace VisualizerAudio
         }
 
         public event OnReadHandler OnRead;
-        
+
         public override int Read(byte[] buffer, int offset, int count)
         {
             int bytesRead = base.Read(buffer, offset, count);
             ReadEventArgs args = new ReadEventArgs(Position);
             OnRead(this, args);
-            return base.Read(buffer, offset, count);
+            return bytesRead;
+        }
+
+        public new int Read(float[] buffer, int offset, int count)
+        {
+            int bytesRead = base.Read(buffer, offset, count);
+            ReadEventArgs args = new ReadEventArgs(Position);
+            OnRead(this, args);
+            return bytesRead;
         }
     }
 }

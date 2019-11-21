@@ -13,13 +13,6 @@ public:
     D3DVECTOR position;
 
     CUSTOMVERTEX* vertices;
-
-private:
-    void AddFrontFace(D3DVECTOR position, float dimensions);
-    void AddLeftFace(D3DVECTOR position, float dimensions);
-    void AddRightFace(D3DVECTOR position, float dimensions);
-    void AddTopFace(D3DVECTOR position, float dimensions);
-    void AddBackFace(D3DVECTOR position, float dimensions);
-    void AddBottomFace(D3DVECTOR position, float dimensions);
+    short* indices;
 };
 
