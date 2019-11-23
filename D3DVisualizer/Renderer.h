@@ -16,6 +16,8 @@ public:
 
     virtual HRESULT Render() = 0;
 
+    virtual HRESULT CreateEpoch() = 0;
+
     IDirect3DSurface9 *GetSurfaceNoRef() { return m_pd3dRTS; }
 
 protected:

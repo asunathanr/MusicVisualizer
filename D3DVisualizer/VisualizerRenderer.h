@@ -16,6 +16,8 @@ public:
 
     void AddCube();
 
+    HRESULT CreateEpoch();
+
     ~VisualizerRenderer();
 
 protected:

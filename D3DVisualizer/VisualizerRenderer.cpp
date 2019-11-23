@@ -33,8 +33,6 @@ VisualizerRenderer::VisualizerRenderer() : CRenderer(), rotationSpeed(0.0f), m_p
 {
 }
 
-
-
 VisualizerRenderer::~VisualizerRenderer()
 {
     SAFE_RELEASE(m_pd3dVB);
@@ -43,17 +41,6 @@ VisualizerRenderer::~VisualizerRenderer()
 HRESULT VisualizerRenderer::Init(IDirect3D9 * pD3D, IDirect3D9Ex * pD3DEx, HWND hwnd, UINT uAdapter)
 {
         // Set up the VB
-    
-    CUSTOMVERTEX vertices[] =
-    {
-        { -2.0f, -2.0f, 10.0f, 0xffffff00, }, // x, y, z, color
-        {  1.0f, -1.0f, 10.0f, 0xff00ff00, },
-        {  0.0f,  1.0f, 10.0f, 0xff00ffff, },
-
-        { -2.0f, -2.0f, 5.0f, 0xff22ffff, }, // x, y, z, color
-        {  1.0f, -1.0f, 5.0f, 0xff11ffff, },
-        {  0.0f,  1.0f, 5.0f, 0xff66ffff, },
-    };
 
     HRESULT hr = S_OK;
     D3DXMATRIXA16 matView, matProj;
@@ -62,22 +49,16 @@ HRESULT VisualizerRenderer::Init(IDirect3D9 * pD3D, IDirect3D9Ex * pD3DEx, HWND 
     D3DXVECTOR3 vUpVec(0.0f, 1.0f, 0.0f);
 
 
-    UINT numVertices = sizeof(CUSTOMVERTEX) * 36;
-
     // Call base to create the device and render target
     IFC(CRenderer::Init(pD3D, pD3DEx, hwnd, uAdapter));
 
-    IFC(m_pd3dDevice->CreateVertexBuffer(sizeof(vertices),    
+    IFC(m_pd3dDevice->CreateVertexBuffer(sizeof(CUSTOMVERTEX)*6,    
                                      0,
                                      D3DFVF_CUSTOMVERTEX | D3DUSAGE_WRITEONLY | D3DUSAGE_DYNAMIC,
                                      D3DPOOL_DEFAULT,
                                      &m_pd3dVB,
                                      NULL));
 
-    void *pVertices;
-    IFC(m_pd3dVB->Lock(0, sizeof(vertices), &pVertices, 0));
-    memcpy(pVertices, vertices, sizeof(vertices));
-    m_pd3dVB->Unlock();
 
     // Set up the camera
     D3DXMatrixLookAtLH(&matView, &vEyePt, &vLookatPt, &vUpVec);
@@ -129,6 +110,30 @@ void VisualizerRenderer::AdjustRotationSpeed(float newRotationSpeed)
 void VisualizerRenderer::AddCube()
 {
     ++numCubes;
+}
+
+HRESULT VisualizerRenderer::CreateEpoch()
+{
+    HRESULT hr = S_OK;
+
+    CUSTOMVERTEX vertices[] = 
+    {
+        { -2.0f, -2.0f, 10.0f, 0xffffff00, }, // x, y, z, color
+        {  1.0f, -1.0f, 10.0f, 0xff00ff00, },
+        {  0.0f,  1.0f, 10.0f, 0xff00ffff, },
+
+        { -2.0f, -2.0f, 5.0f, 0xff22ffff, }, // x, y, z, color
+        {  1.0f, -1.0f, 5.0f, 0xff11ffff, },
+        {  0.0f,  1.0f, 5.0f, 0xff66ffff, },
+    };
+
+    void *pVertices;
+    IFC(m_pd3dVB->Lock(0, sizeof(vertices), &pVertices, 0));
+    memcpy(pVertices, vertices, sizeof(vertices));
+    m_pd3dVB->Unlock();
+
+Cleanup:
+    return hr;
 }
 
 void VisualizerRenderer::CopyCubes(CUSTOMVERTEX * destination)
