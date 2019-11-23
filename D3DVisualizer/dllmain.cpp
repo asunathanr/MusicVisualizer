@@ -30,7 +30,7 @@ extern "C" HRESULT WINAPI CreateEpoch()
 
     IFC(EnsureRendererManager());
 
-    
+    pManager->CreateEpoch();
 
 Cleanup:
     return hr;

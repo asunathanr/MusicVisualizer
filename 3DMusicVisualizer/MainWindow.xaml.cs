@@ -156,7 +156,6 @@ namespace _3DMusicVisualizer
             fileRetriever.OnFail = () =>
             {
                 App.Pause();
-                throw new Exception("Could not open file.");
             };
 
             fileRetriever.RetrieveFile();

@@ -4,6 +4,8 @@
 
 #define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZ | D3DFVF_DIFFUSE)
 
+D3DPRESENT_PARAMETERS d3dpp;
+
 HRESULT VisualizerRenderer::Create(IDirect3D9 * pD3D, IDirect3D9Ex * pD3DEx, HWND hwnd, UINT uAdapter, CRenderer ** ppRenderer)
 {
     HRESULT hr = S_OK;
@@ -16,6 +18,11 @@ HRESULT VisualizerRenderer::Create(IDirect3D9 * pD3D, IDirect3D9Ex * pD3DEx, HWN
 
     *ppRenderer = pRenderer;
     pRenderer = NULL;
+
+    
+    ZeroMemory(&d3dpp, sizeof(d3dpp));
+    d3dpp.EnableAutoDepthStencil = TRUE;
+    d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
 
 Cleanup:
     delete pRenderer;
@@ -43,9 +50,9 @@ HRESULT VisualizerRenderer::Init(IDirect3D9 * pD3D, IDirect3D9Ex * pD3DEx, HWND 
         {  1.0f, -1.0f, 10.0f, 0xff00ff00, },
         {  0.0f,  1.0f, 10.0f, 0xff00ffff, },
 
-        { -4.0f, -4.0f, 10.0f, 0xffffff00, }, // x, y, z, color
-        {  2.0f, -2.0f, 10.0f, 0xff00ff00, },
-        {  1.0f,  2.0f, 10.0f, 0xff00ffff, },
+        { -2.0f, -2.0f, 5.0f, 0xff22ffff, }, // x, y, z, color
+        {  1.0f, -1.0f, 5.0f, 0xff11ffff, },
+        {  0.0f,  1.0f, 5.0f, 0xff66ffff, },
     };
 
     HRESULT hr = S_OK;
@@ -62,7 +69,7 @@ HRESULT VisualizerRenderer::Init(IDirect3D9 * pD3D, IDirect3D9Ex * pD3DEx, HWND 
 
     IFC(m_pd3dDevice->CreateVertexBuffer(sizeof(vertices),    
                                      0,
-                                     D3DFVF_CUSTOMVERTEX,
+                                     D3DFVF_CUSTOMVERTEX | D3DUSAGE_WRITEONLY | D3DUSAGE_DYNAMIC,
                                      D3DPOOL_DEFAULT,
                                      &m_pd3dVB,
                                      NULL));
