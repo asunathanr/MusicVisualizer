@@ -1,6 +1,7 @@
 ﻿using NAudio.Wave;
 using System.Collections.Generic;
 using System.Linq;
+using VisualizerAudio;
 
 namespace _3DMusicVisualizer
 {

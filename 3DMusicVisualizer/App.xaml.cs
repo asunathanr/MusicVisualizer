@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using NAudio.Wave;
+using System;
+using System.Windows;
+using VisualizerAudio;
 
 namespace _3DMusicVisualizer
 {
@@ -8,8 +11,8 @@ namespace _3DMusicVisualizer
     public partial class App : Application
     {
         private static AudioPlayer audio;
-        private static RotationConsumer rotationConsumer;
-        private static RotationProducer rotationProducer;
+        private static AudioFileSubscriber subscriber;
+        private static Action graphicsAction;
 
         public static void Play()
         {
@@ -29,7 +32,16 @@ namespace _3DMusicVisualizer
         public static void ChangeTrack(string trackName)
         {
             audio = new AudioPlayer(trackName);
+            if (graphicsAction != null)
+            {
+                subscriber = new AudioFileSubscriber(audio, graphicsAction);
+            }
             Play();
+        }
+
+        public static void RegisterGraphicsAction(Action graphicsAction)
+        {
+            App.graphicsAction = graphicsAction;
         }
 
         public static void PauseMusic()

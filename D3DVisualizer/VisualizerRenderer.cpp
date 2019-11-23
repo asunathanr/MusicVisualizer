@@ -36,24 +36,17 @@ VisualizerRenderer::~VisualizerRenderer()
 HRESULT VisualizerRenderer::Init(IDirect3D9 * pD3D, IDirect3D9Ex * pD3DEx, HWND hwnd, UINT uAdapter)
 {
         // Set up the VB
-    /*
+    
     CUSTOMVERTEX vertices[] =
     {
-        { 1.0f, 1.0f, 0.0f, 0xffffff00, }, // x, y, z, color
-        {  1.0f, 2.0f, 0.0f, 0xff00ff00, },
-        {  2.0f,  2.0f, 0.0f, 0xff00ffff, },
+        { -2.0f, -2.0f, 10.0f, 0xffffff00, }, // x, y, z, color
+        {  1.0f, -1.0f, 10.0f, 0xff00ff00, },
+        {  0.0f,  1.0f, 10.0f, 0xff00ffff, },
 
-        { 1.0f, 1.0f, 0.0f, 0xffffff00, }, // x, y, z, color
-        {  2.0f, 1.0f, 0.0f, 0xff00ff00, }, // Bottom-right
-        {  2.0f,  2.0f, 0.0f, 0xff00ffff, },
+        { -4.0f, -4.0f, 10.0f, 0xffffff00, }, // x, y, z, color
+        {  2.0f, -2.0f, 10.0f, 0xff00ff00, },
+        {  1.0f,  2.0f, 10.0f, 0xff00ffff, },
     };
-    */
-
-    CUSTOMVERTEX vertices[36];
-    short* indices;
-    geometries.push_back(CubeGeometry({-1.0f, -1.0f, 0.0f}, 1.0f));
-    CopyCubes(vertices);
-    indices = geometries.at(0).indices;
 
     HRESULT hr = S_OK;
     D3DXMATRIXA16 matView, matProj;
@@ -67,12 +60,17 @@ HRESULT VisualizerRenderer::Init(IDirect3D9 * pD3D, IDirect3D9Ex * pD3DEx, HWND 
     // Call base to create the device and render target
     IFC(CRenderer::Init(pD3D, pD3DEx, hwnd, uAdapter));
 
-    m_pd3dDevice->CreateIndexBuffer(sizeof(vertices), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &m_indexBuffer, NULL);
+    IFC(m_pd3dDevice->CreateVertexBuffer(sizeof(vertices),    
+                                     0,
+                                     D3DFVF_CUSTOMVERTEX,
+                                     D3DPOOL_DEFAULT,
+                                     &m_pd3dVB,
+                                     NULL));
 
     void *pVertices;
-    IFC(m_indexBuffer->Lock(0, sizeof(vertices), &pVertices, 0));
-    memcpy(pVertices, indices, 36);
-    m_indexBuffer->Unlock();
+    IFC(m_pd3dVB->Lock(0, sizeof(vertices), &pVertices, 0));
+    memcpy(pVertices, vertices, sizeof(vertices));
+    m_pd3dVB->Unlock();
 
     // Set up the camera
     D3DXMatrixLookAtLH(&matView, &vEyePt, &vLookatPt, &vUpVec);
@@ -95,31 +93,22 @@ HRESULT VisualizerRenderer::Render()
 {
     HRESULT hr = S_OK;
     D3DXMATRIXA16 matWorld;
-    // Set up the rotation
-    UINT  iTime  = GetTickCount() % 1000;
-    FLOAT fAngle = rotationSpeed * iTime * (2.0f * D3DX_PI) / 1000.0f;
 
     IFC(m_pd3dDevice->BeginScene());
     IFC(m_pd3dDevice->Clear(
         0,
         NULL,
         D3DCLEAR_TARGET,
-        D3DCOLOR_ARGB(128, 0, 0, 128),  // NOTE: Premultiplied alpha!
+        D3DCOLOR_ARGB(128, 28, 28, 28),  // NOTE: Premultiplied alpha!
         1.0f,
         0
         ));
     
-    D3DXMatrixRotationY(&matWorld, fAngle);
-    //D3DXMatrixTranslation(&matWorld, currTranslate.x, currTranslate.y, currTranslate.z);
-    
-    IFC(m_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorld));
+    //IFC(m_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorld));
 
-    m_pd3dDevice->SetStreamSource(0, m_pd3dVB, 0, sizeof(CUSTOMVERTEX));
-    m_pd3dDevice->SetIndices(m_indexBuffer);
-    m_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12);
+    m_pd3dDevice->DrawPrimitive(D3DPT_TRIANGLEFAN, 0, 2);
 
     IFC(m_pd3dDevice->EndScene());
-    currTranslate.z -= 0.00f;
 
 Cleanup:
     return hr;

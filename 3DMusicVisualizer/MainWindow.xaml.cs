@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -11,6 +12,7 @@ namespace _3DMusicVisualizer
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// <see cref="https://docs.microsoft.com/en-us/dotnet/framework/wpf/advanced/walkthrough-hosting-direct3d9-content-in-wpf"/>
+    /// Since the view is relatively simple, I chose to have more code-behind instead of utilizing a viewmodel.
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -26,14 +28,22 @@ namespace _3DMusicVisualizer
         {
             InitializeComponent();
 
+            App.RegisterGraphicsAction(() => CreateEpoch());
+
             visualizerImage = FindName("D3DImage") as D3DImage;
 
             visualizerHeight = (uint)visualizerImage.PixelHeight;
             visualizerWidth = (uint)visualizerImage.PixelWidth;
 
-            HRESULT.Check(SetSize(1024, 1024));
-            HRESULT.Check(SetAlpha(false));
-            HRESULT.Check(SetNumDesiredSamples(4));
+            try
+            {
+                HRESULT.Check(SetSize(1024, 1024));
+                HRESULT.Check(SetAlpha(true));
+                HRESULT.Check(SetNumDesiredSamples(4));
+            } catch(Exception e)
+            {
+                Console.WriteLine(e.HResult);
+            }
 
             CompositionTarget.Rendering += new EventHandler(CompositionTarget_Rendering);
         }
@@ -99,9 +109,32 @@ namespace _3DMusicVisualizer
         [DllImport("D3DVisualizer.dll")]
         static extern void Destroy();
 
+        /// <summary>
+        /// Event handler to pause audio and visualizations on click.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PauseVisualizerOnClick(object sender, RoutedEventArgs e)
         {
             App.Pause();
+            var audioControl = FindName("PauseButton") as Button;
+            audioControl.Content = "Play";
+            audioControl.Click -= PauseVisualizerOnClick;
+            audioControl.Click += PlayVisualizerOnClick;
+        }
+
+        /// <summary>
+        /// Event handler to play audio and visualizations on click.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PlayVisualizerOnClick(object sender, RoutedEventArgs e)
+        {
+            App.Play();
+            var audioControl = FindName("PauseButton") as Button;
+            audioControl.Content = "Pause";
+            audioControl.Click -= PlayVisualizerOnClick;
+            audioControl.Click += PauseVisualizerOnClick;
         }
 
         /// <summary>

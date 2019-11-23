@@ -1,9 +1,8 @@
 ﻿using NAudio.Wave;
 using System;
-using System.Collections.Generic;
 using VisualizerAudio;
 
-namespace _3DMusicVisualizer
+namespace VisualizerAudio
 {
     public class AudioPlayer
     {
@@ -17,9 +16,9 @@ namespace _3DMusicVisualizer
             waveOutEvent.Init(player);
         }
 
-        public void RegisterReadSubscriber(OnReadHandler subscriber)
+        public void RegisterReadSubscriber(EventHandler<byte[]> subscriber)
         {
-            player.OnRead += subscriber;
+            player.OnBytesRead += subscriber;
         }
 
         public long CurrentSample => player.Position;
