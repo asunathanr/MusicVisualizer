@@ -29,13 +29,14 @@ Cleanup:
     return hr;
 }
 
-VisualizerRenderer::VisualizerRenderer() : CRenderer(), rotationSpeed(0.0f), m_pd3dVB(NULL), currTranslate({0.0f, 0.0f, 0.0f}), numCubes(1)
+VisualizerRenderer::VisualizerRenderer() : CRenderer(), rotationSpeed(0.0f), m_VB(NULL), currTranslate({0.0f, 0.0f, 0.0f}), numCubes(1), numObjects(0)
 {
+    
 }
 
 VisualizerRenderer::~VisualizerRenderer()
 {
-    SAFE_RELEASE(m_pd3dVB);
+    SAFE_RELEASE(m_VB);
 }
 
 HRESULT VisualizerRenderer::Init(IDirect3D9 * pD3D, IDirect3D9Ex * pD3DEx, HWND hwnd, UINT uAdapter)
@@ -52,13 +53,7 @@ HRESULT VisualizerRenderer::Init(IDirect3D9 * pD3D, IDirect3D9Ex * pD3DEx, HWND 
     // Call base to create the device and render target
     IFC(CRenderer::Init(pD3D, pD3DEx, hwnd, uAdapter));
 
-    IFC(m_pd3dDevice->CreateVertexBuffer(sizeof(CUSTOMVERTEX)*6,    
-                                     0,
-                                     D3DFVF_CUSTOMVERTEX | D3DUSAGE_WRITEONLY | D3DUSAGE_DYNAMIC,
-                                     D3DPOOL_DEFAULT,
-                                     &m_pd3dVB,
-                                     NULL));
-
+    vb.CreateBuffer(m_pd3dDevice, 1, D3DFVF_CUSTOMVERTEX, sizeof(CUSTOMVERTEX), true);
 
     // Set up the camera
     D3DXMatrixLookAtLH(&matView, &vEyePt, &vLookatPt, &vUpVec);
@@ -69,18 +64,21 @@ HRESULT VisualizerRenderer::Init(IDirect3D9 * pD3D, IDirect3D9Ex * pD3DEx, HWND 
     // Set up the global state
     IFC(m_pd3dDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE));
     IFC(m_pd3dDevice->SetRenderState(D3DRS_LIGHTING, FALSE));
-    IFC(m_pd3dDevice->SetStreamSource(0, m_pd3dVB, 0, sizeof(CUSTOMVERTEX)));
+    IFC(m_pd3dDevice->SetStreamSource(0, m_VB, 0, sizeof(CUSTOMVERTEX)));
     IFC(m_pd3dDevice->SetFVF(D3DFVF_CUSTOMVERTEX));
 
 Cleanup:
     return hr;
 }
 
-
+/*
+    Renders any vertices currently in the dynamic vertex buffer.
+*/
 HRESULT VisualizerRenderer::Render()
 {
     HRESULT hr = S_OK;
     D3DXMATRIXA16 matWorld;
+    D3DXMATRIX* vertexTranslate;
 
     IFC(m_pd3dDevice->BeginScene());
     IFC(m_pd3dDevice->Clear(
@@ -93,8 +91,8 @@ HRESULT VisualizerRenderer::Render()
         ));
     
     //IFC(m_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorld));
-
-    m_pd3dDevice->DrawPrimitive(D3DPT_TRIANGLEFAN, 0, 2);
+    
+    vb.Render(m_pd3dDevice, 1, D3DPT_TRIANGLELIST);
 
     IFC(m_pd3dDevice->EndScene());
 
@@ -116,36 +114,28 @@ HRESULT VisualizerRenderer::CreateEpoch()
 {
     HRESULT hr = S_OK;
 
-    CUSTOMVERTEX vertices[] = 
+    CUSTOMVERTEX vertices[] =
     {
         { -2.0f, -2.0f, 10.0f, 0xffffff00, }, // x, y, z, color
         {  1.0f, -1.0f, 10.0f, 0xff00ff00, },
         {  0.0f,  1.0f, 10.0f, 0xff00ffff, },
-
-        { -2.0f, -2.0f, 5.0f, 0xff22ffff, }, // x, y, z, color
-        {  1.0f, -1.0f, 5.0f, 0xff11ffff, },
-        {  0.0f,  1.0f, 5.0f, 0xff66ffff, },
     };
 
-    void *pVertices;
-    IFC(m_pd3dVB->Lock(0, sizeof(vertices), &pVertices, 0));
-    memcpy(pVertices, vertices, sizeof(vertices));
-    m_pd3dVB->Unlock();
-
+    void *pVertices = (void*)vertices;
+    IFC(vb.SetData(3, pVertices));
 Cleanup:
     return hr;
 }
 
-void VisualizerRenderer::CopyCubes(CUSTOMVERTEX * destination)
+// Private helpers
+
+void VisualizerRenderer::CopyCubes(CUSTOMVERTEX ** destination)
 {
-    CUSTOMVERTEX * currentDestination = destination;
-    for (const CubeGeometry& geometry : geometries) 
+    CUSTOMVERTEX ** currentDestination = destination;
+    for (CUSTOMVERTEX* vertex : currentVertices) 
     {
-        for (int i = 0; i < 36; ++i) 
-        {
-            *currentDestination = geometry.vertices[i];
-            currentDestination++;
-        }
+        *currentDestination = vertex;
+        ++currentDestination;
     }
 }
 

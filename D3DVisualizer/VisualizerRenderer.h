@@ -2,6 +2,7 @@
 #include "Renderer.h"
 #include "CubeGeometry.h"
 #include "CustomVertex.h"
+#include "VertexBuffer.h"
 #include <vector>
 
 class VisualizerRenderer :
@@ -30,7 +31,11 @@ private:
 
     int numCubes;
 
-    IDirect3DVertexBuffer9 * m_pd3dVB;
+    int numObjects;
+
+    std::vector<CUSTOMVERTEX*> currentVertices;
+
+    IDirect3DVertexBuffer9 * m_VB;
 
     IDirect3DIndexBuffer9 * m_indexBuffer; 
 
@@ -38,6 +43,8 @@ private:
 
     std::vector<CubeGeometry> geometries;
 
-    void CopyCubes(CUSTOMVERTEX* destination);
+    VertexBuffer vb;
+
+    void CopyCubes(CUSTOMVERTEX** destination);
 };
 
